@@ -37,6 +37,7 @@ class _MyCardProductState extends State<MyCardProduct> {
             Stack(
               clipBehavior: Clip.none,
               children: [
+                const Spacer(),
                 Container(
                   height: 180,
                   decoration: BoxDecoration(
@@ -44,7 +45,10 @@ class _MyCardProductState extends State<MyCardProduct> {
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10)),
                       image: DecorationImage(
-                        image:NetworkImage(widget.p.elementAt(widget.index).images.elementAt(0)) ,
+                        image: NetworkImage(widget.p
+                            .elementAt(widget.index)
+                            .images
+                            .elementAt(0)),
                         fit: BoxFit.fill,
                       )),
                 ),
@@ -73,6 +77,7 @@ class _MyCardProductState extends State<MyCardProduct> {
                         )))
               ],
             ),
+            // const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               child: Column(

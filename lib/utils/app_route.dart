@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_app/model/prodct.dart';
+
 import 'package:product_app/view/auth/sign_up_screen.dart';
 import 'package:product_app/view/favorite_screen.dart';
 import 'package:product_app/view/home.dart';

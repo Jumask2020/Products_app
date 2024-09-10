@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_app/model/prodct.dart';
 import 'package:product_app/viewmodel/product_vm.dart';
+import 'package:toast/toast.dart';
 
 class ProductDatelis extends StatefulWidget {
   const ProductDatelis({super.key});
@@ -10,10 +11,9 @@ class ProductDatelis extends StatefulWidget {
 }
 
 class _ProductDatelisState extends State<ProductDatelis> {
-  
-
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     Product p = ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +22,6 @@ class _ProductDatelisState extends State<ProductDatelis> {
               Navigator.of(context).pop(ProductVm.cart.length);
             },
             child: const Icon(Icons.arrow_back)),
-
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 20),
@@ -41,8 +40,15 @@ class _ProductDatelisState extends State<ProductDatelis> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          if (ProductVm.cart.contains(p)) {
+            Toast.show('Added ${p.qty++} Quailty from this Product to The Cart',
+                duration: 2);
+          } else {
+            p.qty = 1;
+            Toast.show('Added Product to The Cart', duration: 2);
+          }
           ProductVm.addCart(p: p);
-          
+
           setState(() {});
         },
         child: const Icon(Icons.shopping_cart),

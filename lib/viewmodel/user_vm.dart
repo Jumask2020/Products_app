@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:product_app/model/user.dart';
 
 class UserVm {

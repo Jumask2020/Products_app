@@ -1,15 +1,18 @@
 import 'package:product_app/model/prodct.dart';
 
 class CartVm {
-  double totalCartPrice(List<Map<Product, int>> cart) {
+  
+  double totalProductPrice(int price, int qty) {
+    return price * qty.toDouble();
+  }
+
+  double totalCartPrice(List<Product> cart) {
     double totalPrice = 0.0;
-    for (var c in cart) {
-      double total = 0.0;
-      c.forEach((k, v) {
-        total = (k.price * v).toDouble();
-      });
-      totalPrice = totalPrice + total;
+    for (int i = 0; i < cart.length; i++) {
+      double total = cart[i].price * cart[i].qty.toDouble();
+      totalPrice += total;
     }
+
     return totalPrice;
   }
 

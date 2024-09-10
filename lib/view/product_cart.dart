@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:product_app/model/prodct.dart';
 import 'package:product_app/viewmodel/cart_vm.dart';
 import 'package:product_app/viewmodel/product_vm.dart';
 
@@ -11,12 +12,20 @@ class ProductCart extends StatefulWidget {
 
 class _ProductCartState extends State<ProductCart> {
   CartVm cartVm = CartVm();
+  // int i = 1;
+  late List<Product> item;
+  @override
+  void initState() {
+    item = ProductVm.cart;
+    super.initState();
+  }
 
-  // List<Map<Product, int>> cart;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Cart Product'),
+      ),
       body: SizedBox(
         // height: MediaQuery.of(context).size.height - 190,
         height: MediaQuery.of(context).size.height - 80,
@@ -32,17 +41,15 @@ class _ProductCartState extends State<ProductCart> {
                     return const Divider();
                   },
                   itemBuilder: (context, index) {
-                    var item = ProductVm.cart;
                     return ListTile(
-                      leading: Image.network(item[index].keys.first.images[0]),
+                      leading: Image.network(item[index].images[0]),
                       title: Text(
-                        item[index].keys.first.name,
+                        item[index].name,
                         maxLines: 2,
                       ),
                       subtitle: Row(
                         children: [
-                          Text(
-                              'Qualty : ${item[index].values.first.toString()}'),
+                          Text('Qualty : ${item[index].qty}'),
                           Container(
                             margin: const EdgeInsets.only(left: 12, right: 6),
                             child: Row(
@@ -50,9 +57,9 @@ class _ProductCartState extends State<ProductCart> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    setState(() {
-                                      cartVm.addQty(item[index].values.first);
-                                    });
+                                    item[index].qty++;
+
+                                    setState(() {});
                                   },
                                   child: const CircleAvatar(
                                     backgroundColor: Colors.red,
@@ -69,7 +76,9 @@ class _ProductCartState extends State<ProductCart> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      cartVm.addQty(item[index].values.first);
+                                      if (item[index].qty > 1) {
+                                        item[index].qty--;
+                                      }
                                     });
                                   },
                                   child: const CircleAvatar(
@@ -86,7 +95,10 @@ class _ProductCartState extends State<ProductCart> {
                           )
                         ],
                       ),
-                      trailing: Text('\$ ${item[index].keys.first.price}'),
+                      trailing: Text(
+                        '\$ ${cartVm.totalProductPrice(item[index].price, item[index].qty)}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
                     );
                   },
                 ),
