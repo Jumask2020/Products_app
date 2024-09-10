@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:product_app/model/prodct.dart';
 import 'package:product_app/viewmodel/product_vm.dart';
 
@@ -37,7 +38,6 @@ class _MyCardProductState extends State<MyCardProduct> {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                const Spacer(),
                 Container(
                   height: 180,
                   decoration: BoxDecoration(
@@ -45,10 +45,7 @@ class _MyCardProductState extends State<MyCardProduct> {
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10)),
                       image: DecorationImage(
-                        image: NetworkImage(widget.p
-                            .elementAt(widget.index)
-                            .images
-                            .elementAt(0)),
+                        image: NetworkImage(widget.p[widget.index].images[0]),
                         fit: BoxFit.fill,
                       )),
                 ),
@@ -57,13 +54,8 @@ class _MyCardProductState extends State<MyCardProduct> {
                     right: -4,
                     child: IconButton(
                         onPressed: () {
-                          print(widget.index);
-                          print(widget.p.length);
-                          if (widget.p[widget.index].isFav) {
-                            widget.p[widget.index].isFav = false;
-                          } else {
-                            widget.p[widget.index].isFav = true;
-                          }
+                          widget.p[widget.index].isFav =
+                              !widget.p[widget.index].isFav;
                           ProductVm.favoriteProductS(
                               p: widget.p[widget.index],
                               isFavorite: widget.p[widget.index].isFav);

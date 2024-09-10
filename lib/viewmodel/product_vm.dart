@@ -6,14 +6,27 @@ class ProductVm {
   // static List<Map<Product, int>> cart = [];
   static List<Product> cart = [];
   static List<Product> favorite = [];
+  // List<Catagry> catagry = [];
 
   ProductDb db = ProductDb();
   List<Product> fetchAllProduct() {
     return db.fetchProduct().map((e) => Product.fromMap(e)).toList();
   }
 
-  List<Catagry> fetchAllCatary() {
-    return db.fetchCatagry().map((e) => Catagry.fromMap(e)).toList();
+  List<Category> fetchAllCatary() {
+    List<Category> categories = db
+        .fetchProduct()
+        .map((item) => item['category'])
+        .map((cat) => Category(
+              id: cat['id'],
+              name: cat['name'],
+              image: cat['image'],
+            ))
+        .toList();
+
+    // إزالة العناصر المكررة
+    List<Category> uniqueCategories = categories.toSet().toList();
+    return uniqueCategories;
   }
 
   static List<Product> addCart({required Product p}) {

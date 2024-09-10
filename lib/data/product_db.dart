@@ -1,3 +1,5 @@
+
+
 class ProductDb {
   List<Map<String, dynamic>> products = [
     {
@@ -1098,7 +1100,13 @@ class ProductDb {
     return products;
   }
 
-  List fetchCatagry() {
-    return products.map((e) => e['category']).toList();
-  }
+  // List fetchCatagry() {
+  // return  products.map((e) => e['category']).toList();
+
+  // }
+  // List fetchCatagry(){
+
+  
+  // }
+  
 }

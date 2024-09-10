@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:product_app/model/prodct.dart';
 import 'package:product_app/viewmodel/cart_vm.dart';
 import 'package:product_app/viewmodel/product_vm.dart';
+import 'package:product_app/widget/my_buttom.dart';
 
 class ProductCart extends StatefulWidget {
   const ProductCart({super.key});
@@ -38,7 +39,13 @@ class _ProductCartState extends State<ProductCart> {
                 child: ListView.separated(
                   itemCount: ProductVm.cart.length,
                   separatorBuilder: (context, index) {
-                    return const Divider();
+                    return MyButtom(
+                      name: 'Remove',
+                      onPressed: () {
+                        ProductVm.cart.remove(item[index]);
+                        setState(() {});
+                      },
+                    );
                   },
                   itemBuilder: (context, index) {
                     return ListTile(
@@ -95,9 +102,33 @@ class _ProductCartState extends State<ProductCart> {
                           )
                         ],
                       ),
-                      trailing: Text(
-                        '\$ ${cartVm.totalProductPrice(item[index].price, item[index].qty)}',
-                        style: const TextStyle(fontSize: 14),
+                      trailing: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              ProductVm.cart.remove(item[index]);
+                              setState(() {});
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.indigo[800],
+                                  borderRadius: BorderRadius.circular(15)),
+                              height: 30,
+                              width: 30,
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            '\$ ${cartVm.totalProductPrice(item[index].price, item[index].qty)}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
                       ),
                     );
                   },

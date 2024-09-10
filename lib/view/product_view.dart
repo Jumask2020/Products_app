@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:product_app/model/catagry.dart';
 
 import 'package:product_app/model/prodct.dart';
 
@@ -16,9 +17,11 @@ class _ProductViewState extends State<ProductView> {
   ProductVm productVm = ProductVm();
   bool isFavorite = false;
   late List<Product> p;
+  late List<Category> c;
   @override
   void initState() {
     // TODO: implement initState
+    c = productVm.fetchAllCatary();
     p = productVm.fetchAllProduct();
     super.initState();
   }
@@ -51,39 +54,39 @@ class _ProductViewState extends State<ProductView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // SizedBox(
-            //   height: 110,
-            //   child: ListView.builder(
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: c.length,
-            //     itemBuilder: (context, index) {
-            //       return SizedBox(
-            //         height: 120,
-            //         width: 100,
-            //         child: Column(
-            //           children: [
-            //             Container(
-            //               margin: const EdgeInsets.symmetric(vertical: 8),
-            //               height: 60,
-            //               width: 60,
-            //               decoration: BoxDecoration(
-            //                   color: Colors.grey,
-            //                   shape: BoxShape.circle,
-            //                   image: DecorationImage(
-            //                       image: NetworkImage(c[index].image),
-            //                       fit: BoxFit.fill)),
-            //               // child: Text(c[index].image),
-            //             ),
-            //             Text(c[index].name)
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
+            SizedBox(
+              height: 110,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: c.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: 120,
+                    width: 100,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: NetworkImage(c[index].image),
+                                  fit: BoxFit.fill)),
+                          // child: Text(c[index].image),
+                        ),
+                        Text(c[index].name)
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
             SizedBox(
               // height: MediaQuery.of(context).size.height - 190,
-              height: MediaQuery.of(context).size.height - 139,
+              height: MediaQuery.of(context).size.height - 249,
 
               child: Card(
                 child: GridView.builder(

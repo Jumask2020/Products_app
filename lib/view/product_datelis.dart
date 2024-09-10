@@ -31,7 +31,10 @@ class _ProductDatelisState extends State<ProductDatelis> {
               },
               child: Badge(
                 label: Text('${ProductVm.cart.length}'),
-                child: const Icon(Icons.shopping_cart),
+                child: const Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
               ),
             ),
           )
@@ -41,10 +44,9 @@ class _ProductDatelisState extends State<ProductDatelis> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (ProductVm.cart.contains(p)) {
-            Toast.show('Added ${p.qty++} Quailty from this Product to The Cart',
+            Toast.show('Added ${p.qty} Quailty from this Product to The Cart',
                 duration: 2);
           } else {
-            p.qty = 1;
             Toast.show('Added Product to The Cart', duration: 2);
           }
           ProductVm.addCart(p: p);
