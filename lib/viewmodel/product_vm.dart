@@ -13,20 +13,27 @@ class ProductVm {
     return db.fetchProduct().map((e) => Product.fromMap(e)).toList();
   }
 
-  List<Category> fetchAllCatary() {
-    List<Category> categories = db
+  List<Product> filtterProduct(int id) {
+    return db
         .fetchProduct()
-        .map((item) => item['category'])
-        .map((cat) => Category(
-              id: cat['id'],
-              name: cat['name'],
-              image: cat['image'],
-            ))
+        .where((e) => e['category']['id'] == id)
+        .toList()
+        .map((p) => Product.fromMap(p))
         .toList();
+  }
 
-    // إزالة العناصر المكررة
-    List<Category> uniqueCategories = categories.toSet().toList();
-    return uniqueCategories;
+  List<Category> fetchAllCatary() {
+    List<Map<String, dynamic>> uniqueItems = [];
+    Set<int> itemIds = {};
+
+    for (var item in db.fetchCatagry()) {
+      if (!itemIds.contains(item['id'])) {
+        itemIds.add(item['id']);
+        uniqueItems.add(item);
+      }
+    }
+
+    return uniqueItems.map((e) => Category.fromMap(e)).toList();
   }
 
   static List<Product> addCart({required Product p}) {
